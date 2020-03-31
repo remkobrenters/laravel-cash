@@ -1,0 +1,33 @@
+{
+  "name": "webparking/laravel-cash",
+  "description": "Laravel API helper for CASH",
+  "license": "MIT",
+  "require": {
+    "php": "^7.4",
+    "artisaninweb/laravel-soap": "0.3.0.9",
+    "myclabs/php-enum": "^1.7",
+    "ext-simplexml": "*"
+  },
+  "require-dev": {
+    "phpstan/phpstan": "^0.12.18",
+    "friendsofphp/php-cs-fixer": "^2.16"
+  },
+  "autoload": {
+    "psr-4": {
+      "Webparking\\LaravelCash\\": "src/"
+    }
+  },
+  "extra": {
+    "laravel": {
+      "providers": [
+        "Webparking\\LaravelCash\\Providers\\LaravelCashServiceProvider"
+      ]
+    }
+  },
+  "scripts": {
+    "php-cs-fixer": "vendor/bin/php-cs-fixer fix --config=.php_cs",
+    "test": "composer php-cs-fixer && ./vendor/bin/phpstan analyse src config --level 5"
+  },
+  "minimum-stability": "dev",
+  "prefer-stable": true
+}

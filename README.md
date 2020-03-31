@@ -1,0 +1,34 @@
+# Laravel helper for CASH
+Attempt to connect the past and the future in a stable and manageable way. The wrapper is developed using the v3 API with credentials (and not using the generated token). I only worked out the mapping for the endpoints that I needed.   
+
+## Installation
+```
+composer require webparking/laravel-cash
+```
+
+## Usage 
+    /** @var CashItem $item */
+    $item = app()->make(CashItem::class);
+    
+    // Get collection of items   
+    $items = $item->index(); 
+
+    // Fetch item 'foo'   
+    $item = $item->get('foo'); 
+
+## CASH field definition reference
+The notation is the letter + a number which indicated (in most cases) the max length. So L4 is a lowercase word of max 4 characters.
+
+- S = Uppercase text
+- L = Lowercase and uppercase text
+- N = Numeric
+- Y4 = Year (2 chars) & month (2 chars)
+- Y2 = Year (2chars)
+- I = Decimal (not sure how this notation works)
+
+## Licence and Postcardware
+This software is open source and licensed under the [MIT license](LICENSE.md).
+
+If you use this software in your daily development we would appreciate to receive a postcard of your hometown.
+
+Please send it to: Webparking BV, Cypresbaan 31a, 2908 LT Capelle aan den IJssel, The Netherlands
