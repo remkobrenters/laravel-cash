@@ -16,9 +16,11 @@ class Client
     public function __construct()
     {
         $this->soapWrapper = app()->make(SoapWrapper::class);
-        $this->soapWrapper->add('Cash', function (Service $service): void {
-            $service->wsdl(config('cash.wsdl'));
-        });
+        if (!$this->soapWrapper->has('Cash')) {
+            $this->soapWrapper->add('Cash', function (Service $service): void {
+                $service->wsdl(config('cash.wsdl'));
+            });
+        }
     }
 
     public function getSoapWrapper(): SoapWrapper
