@@ -17,6 +17,7 @@ use Carbon\Carbon;
  * @property string $contractEndDate   4206 Datum beeindigd contract
  * @property string $warrantyEndDate   4204 Afloopdatum garantie
  * @property string $warehouseLocation 2287 Magazijnlocatie
+ * @property string $conditionOne      4231 Voorwaarde1
  */
 class Contract extends BaseResource implements ResourceInterface
 {
@@ -30,6 +31,7 @@ class Contract extends BaseResource implements ResourceInterface
         'contractStartDate' => '4205',
         'contractEndDate' => '4206',
         'warrantyEndDate' => '4204',
+        'conditionOne' => '4231',
     ];
 
     public function getIdField(): string
@@ -96,5 +98,10 @@ class Contract extends BaseResource implements ResourceInterface
         }
 
         return Carbon::parse($this->attributes['warrantyEndDate']);
+    }
+
+    public function getConditionOne(): ?string
+    {
+        return $this->attributes['conditionOne'];
     }
 }
