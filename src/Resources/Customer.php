@@ -5,30 +5,30 @@ declare(strict_types=1);
 namespace Webparking\LaravelCash\Resources;
 
 /**
- * @property string $customerNumber 0101 Klantnummer
- * @property string $searchName     0102 Zoeknaam
- * @property string $name           0102 Naam
+ * @property string $relationNumber   0101 Relatienummer
+ * @property string $customerGroup    2203 Klantgroep
+ * @property string $customerGroupTwo 2206 Klantgroep 2
  */
 class Customer extends BaseResource implements ResourceInterface
 {
     protected array $mapping = [
-        'customerNumber' => '0101',
-        'searchName' => '0102',
-        'name' => '0103',
+        'relationNumber' => '0101',
+        'customerGroup' => '2203',
+        'customerGroupTwo' => '2206',
     ];
 
     public function getIdField(): string
     {
-        return 'customerNumber';
+        return 'relationNumber';
     }
 
-    public function getSearchName(): ?string
+    public function getCustomerGroup(): ?string
     {
-        return $this->attributes['searchName'];
+        return $this->attributes['customerGroup'];
     }
 
-    public function getName(): ?string
+    public function getCustomerGroupTwo(): ?string
     {
-        return $this->attributes['name'];
+        return $this->attributes['customerGroupTwo'];
     }
 }

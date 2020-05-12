@@ -15,6 +15,10 @@ composer require webparking/laravel-cash
 
     // Fetch item 'foo'   
     $item = $item->get('foo'); 
+    
+    
+## Relations and customers
+`Customers` (2220) are a subset of `relations` (0101). The customer entity connects you through to the `customerGroup` and `customerGroupTwo`.  
 
 ## CASH field definition reference
 The notation is the letter + a number which indicated (in most cases) the max length. So L4 is a lowercase word of max 4 characters.

@@ -8,7 +8,7 @@ use Webparking\LaravelCash\Resources\Customer as CustomerResource;
 
 class Customer extends BaseEntity
 {
-    protected string $endpoint = '0101';
+    protected string $endpoint = '2220';
 
     protected string $resource = CustomerResource::class;
 
