@@ -16,6 +16,7 @@ composer require webparking/laravel-cash
     // Fetch item 'foo'   
     $item = $item->get('foo'); 
     
+Note: the CASH API accepts a maximum of 100 requests per minute
     
 ## Relations and customers
 `Customers` (2220) are a subset of `relations` (0101). The customer entity connects you through to the `customerGroup` and `customerGroupTwo`.  
