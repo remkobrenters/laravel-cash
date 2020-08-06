@@ -12,9 +12,9 @@ namespace Webparking\LaravelCash\Resources;
 class Customer extends BaseResource implements ResourceInterface
 {
     protected array $mapping = [
-        'relationNumber' => '0101',
-        'customerGroup' => '2203',
-        'customerGroupTwo' => '2206',
+        'relationNumber' => 'F0101',
+        'customerGroup' => 'F2203',
+        'customerGroupTwo' => 'F2206',
     ];
 
     public function getIdField(): string

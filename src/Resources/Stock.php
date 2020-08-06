@@ -13,10 +13,10 @@ namespace Webparking\LaravelCash\Resources;
 class Stock extends BaseResource
 {
     protected array $mapping = [
-        'warehouse' => '2209',
-        'item' => '2260',
-        'amount' => '2273',
-        'date' => '2298',
+        'warehouse' => 'F2209',
+        'item' => 'F2260',
+        'amount' => 'F2273',
+        'date' => 'F2298',
     ];
 
     public function getIdField(): string

@@ -22,16 +22,16 @@ use Carbon\Carbon;
 class Contract extends BaseResource implements ResourceInterface
 {
     protected array $mapping = [
-        'customerNumber' => '2220',
-        'itemCode' => '2260',
-        'serialNumber' => '2622',
-        'contractType' => '4100',
-        'contractNumber' => '4200',
-        'installationDate' => '4203',
-        'contractStartDate' => '4205',
-        'contractEndDate' => '4206',
-        'warrantyEndDate' => '4204',
-        'conditionOne' => '4231',
+        'customerNumber' => 'F2220',
+        'itemCode' => 'F2260',
+        'serialNumber' => 'F2622',
+        'contractType' => 'F4100',
+        'contractNumber' => 'F4200',
+        'installationDate' => 'F4203',
+        'contractStartDate' => 'F4205',
+        'contractEndDate' => 'F4206',
+        'warrantyEndDate' => 'F4204',
+        'conditionOne' => 'F4231',
     ];
 
     public function getIdField(): string
