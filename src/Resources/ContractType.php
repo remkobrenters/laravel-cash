@@ -11,8 +11,8 @@ namespace Webparking\LaravelCash\Resources;
 class ContractType extends BaseResource implements ResourceInterface
 {
     protected array $mapping = [
-        'description' => '2001',
-        'contractType' => '4100',
+        'description' => 'F2001',
+        'contractType' => 'F4100',
     ];
 
     public function getIdField(): string

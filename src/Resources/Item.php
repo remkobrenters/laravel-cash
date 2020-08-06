@@ -15,12 +15,12 @@ namespace Webparking\LaravelCash\Resources;
 class Item extends BaseResource implements ResourceInterface
 {
     protected array $mapping = [
-        'itemCode' => '2260',
-        'searchName' => '2261',
-        'itemGroup' => '2208',
-        'description' => '2001',
-        'supplierNumber' => '2230',
-        'availableStock' => '2293',
+        'itemCode' => 'F2260',
+        'searchName' => 'F2261',
+        'itemGroup' => 'F2208',
+        'description' => 'F2001',
+        'supplierNumber' => 'F2230',
+        'availableStock' => 'F2293',
     ];
 
     public function getIdField(): string

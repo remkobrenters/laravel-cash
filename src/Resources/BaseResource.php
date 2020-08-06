@@ -45,7 +45,7 @@ abstract class BaseResource
     {
         $this->attributes = [];
         foreach ($this->mapping as $key => $value) {
-            $this->setAttribute($key, $xml->{'F' . $value}->__toString());
+            $this->setAttribute($key, $xml->{$value}->__toString());
         }
     }
 }

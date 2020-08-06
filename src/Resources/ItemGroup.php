@@ -11,8 +11,8 @@ namespace Webparking\LaravelCash\Resources;
 class ItemGroup extends BaseResource implements ResourceInterface
 {
     protected array $mapping = [
-        'description' => '2001',
-        'itemGroup' => '2208',
+        'description' => 'F2001',
+        'itemGroup' => 'F2208',
     ];
 
     public function getIdField(): string

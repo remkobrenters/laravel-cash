@@ -15,12 +15,12 @@ namespace Webparking\LaravelCash\Resources;
 class Relation extends BaseResource implements ResourceInterface
 {
     protected array $mapping = [
-        'relationNumber' => '0101',
-        'searchName' => '0102',
-        'name' => '0103',
-        'address' => '0105',
-        'postal_code' => '0438',
-        'city' => '1837',
+        'relationNumber' => 'F0101',
+        'searchName' => 'F0102',
+        'name' => 'F0103',
+        'address' => 'F0105',
+        'postal_code' => 'F0438',
+        'city' => 'F1837',
     ];
 
     public function getIdField(): string

@@ -16,13 +16,13 @@ namespace Webparking\LaravelCash\Resources;
 class Warehouse extends BaseResource
 {
     protected array $mapping = [
-        'relation' => '0101',
-        'description' => '2001',
-        'warehouseCode' => '2209',
-        'blocked' => '2280',
-        'transitStock' => '3289',
-        'stockType' => '3297',
-        'internalSupply' => '3422',
+        'relation' => 'F0101',
+        'description' => 'F2001',
+        'warehouseCode' => 'F2209',
+        'blocked' => 'F2280',
+        'transitStock' => 'F3289',
+        'stockType' => 'F3297',
+        'internalSupply' => 'F3422',
     ];
 
     public function getIdField(): string
