@@ -6,12 +6,13 @@
     "php": "^7.4",
     "artisaninweb/laravel-soap": "0.3.0.9",
     "myclabs/php-enum": "^1.7",
-    "ext-simplexml": "*"
+    "ext-simplexml": "*",
+    "symfony/http-kernel": "^5.1.5",
+    "laravel/framework": "^7"
   },
   "require-dev": {
     "phpstan/phpstan": "^0.12.18",
-    "friendsofphp/php-cs-fixer": "^2.16",
-    "laravel/framework": "^7"
+    "friendsofphp/php-cs-fixer": "^2.16"
   },
   "autoload": {
     "psr-4": {
