@@ -7,6 +7,7 @@ namespace Webparking\LaravelCash\Entities;
 use Illuminate\Support\Collection;
 use Webparking\LaravelCash\Client;
 use Webparking\LaravelCash\Enums\DataType;
+use Webparking\LaravelCash\Resources\BaseResource;
 
 abstract class BaseEntity
 {
@@ -40,6 +41,11 @@ abstract class BaseEntity
         return new $this->resource($rawData->{'R' . $this->endpoint});
     }
 
+    public function save(BaseResource $resource): void
+    {
+        $this->call(DataType::IMPORT(), $this->endpoint, $resource->getId(), $resource->getSaveAttributes());
+    }
+
     protected function map(\SimpleXMLElement $xml): Collection
     {
         $collection = new Collection();
@@ -51,14 +57,14 @@ abstract class BaseEntity
         return $collection;
     }
 
-    protected function call(DataType $dataType, string $endpoint, string $identifier = null): \SimpleXMLElement
+    protected function call(DataType $dataType, string $endpoint, string $identifier = null, array $attributes = []): ?\SimpleXMLElement
     {
         $response = $this->client->getSoapWrapper()->call(
             $this->client->makeMethod($dataType),
-            $this->client->makeParameters($dataType, $endpoint, $identifier)
+            $this->client->makeParameters($dataType, $endpoint, $identifier, $attributes)
         );
 
-        if (!isset($response['response']) || !isset($response['exportResult'])) {
+        if (!isset($response['response'])) {
             throw new \RuntimeException(sprintf('Call failed, no response received'));
         }
 
@@ -66,9 +72,13 @@ abstract class BaseEntity
             throw new \RuntimeException(sprintf('Call failed, response code %s received', $response['response']->code));
         }
 
-        $this->lastRawDataSet = $this->client->parseResponse($response['exportResult']);
+        if (isset($response['exportResult'])) {
+            $this->lastRawDataSet = $this->client->parseResponse($response['exportResult']);
 
-        return $this->lastRawDataSet;
+            return $this->lastRawDataSet;
+        }
+
+        return null;
     }
 
     public function getLastRawDataSet(): ?\SimpleXMLElement

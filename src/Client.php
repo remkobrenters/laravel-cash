@@ -38,11 +38,25 @@ class Client
         return 'Cash.' . $value;
     }
 
-    public function makeParameters(DataType $dataType, string $endpoint, string $identifier = null): array
+    public function makeParameters(DataType $dataType, string $endpoint, string $identifier = null, array $attributes = []): array
     {
-        $endpointValue = $endpoint;
-        if ($identifier) {
-            $endpointValue .= '|' . $identifier;
+        if ($dataType->equals(DataType::EXPORT())) {
+            $endpointValue = $endpoint;
+            if ($identifier) {
+                $endpointValue .= '|' . $identifier;
+            }
+        } elseif ($dataType->equals(DataType::IMPORT())) {
+            $xml = new \SimpleXMLElement('<CASH></CASH>');
+            $child = $xml->addChild($endpoint);
+            foreach ($attributes as $key => $value) {
+                $child->addChild($key, (string) $value);
+            }
+
+            $dom = dom_import_simplexml($xml);
+            $importData = $dom->ownerDocument->saveXML($dom->ownerDocument->documentElement);
+            $endpointValue = $importData;
+        } else {
+            throw new \RuntimeException('Invalid datatType provided');
         }
 
         return [
