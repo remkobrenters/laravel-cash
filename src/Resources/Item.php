@@ -11,6 +11,7 @@ namespace Webparking\LaravelCash\Resources;
  * @property string $description    2001 Omschrijving
  * @property string $supplierNumber 2230 Leveranciersnummer
  * @property string $availableStock 2293 Vrije voorraad
+ * @property string $technicalStock 2273 Technische voorraad
  * @property string $imageName      jpg  ???
  * @property string $image          4245 Foto
  */
@@ -23,6 +24,7 @@ class Item extends BaseResource implements ResourceInterface
         'description' => 'F2001',
         'supplierNumber' => 'F2230',
         'availableStock' => 'F2293',
+        'technicalStock' => 'F2273',
         'imageName' => 'Zjpg',
         'image' => 'Z4245',
     ];
@@ -60,6 +62,11 @@ class Item extends BaseResource implements ResourceInterface
     public function getAvailableStock(): ?int
     {
         return (int) $this->attributes['availableStock'];
+    }
+
+    public function getTechnicalStock(): ?int
+    {
+        return (int) $this->attributes['technicalStock'];
     }
 
     public function getImageName(): ?string
