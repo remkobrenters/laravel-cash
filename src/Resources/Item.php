@@ -5,16 +5,17 @@ declare(strict_types=1);
 namespace Webparking\LaravelCash\Resources;
 
 /**
- * @property string $articleCode    2260 Artikelcode
- * @property string $searchName     2261 Zoeknaam artikel
- * @property string $itemGroup      2208 Artikelgroep
- * @property string $itemGroup2     2202 Artikelgroep 2
- * @property string $description    2001 Omschrijving
- * @property string $supplierNumber 2230 Leveranciersnummer
- * @property string $availableStock 2293 Vrije voorraad
- * @property string $technicalStock 2273 Technische voorraad
- * @property string $imageName      jpg  ???
- * @property string $image          4245 Foto
+ * @property string $articleCode      2260 Artikelcode
+ * @property string $searchName       2261 Zoeknaam artikel
+ * @property string $itemGroup        2208 Artikelgroep
+ * @property string $itemGroup2       2202 Artikelgroep 2
+ * @property string $description      2001 Omschrijving
+ * @property string $supplierNumber   2230 Leveranciersnummer
+ * @property string $availableStock   2293 Vrije voorraad
+ * @property string $technicalStock   2273 Technische voorraad
+ * @property string $grossRetailPrice 2267 Bruto verkoopprijs
+ * @property string $imageName        jpg  ???
+ * @property string $image            4245 Foto
  */
 class Item extends BaseResource implements ResourceInterface
 {
@@ -27,6 +28,7 @@ class Item extends BaseResource implements ResourceInterface
         'supplierNumber' => 'F2230',
         'availableStock' => 'F2293',
         'technicalStock' => 'F2273',
+        'grossRetailPrice' => 'F2267',
         'imageName' => 'Zjpg',
         'image' => 'Z4245',
     ];
@@ -74,6 +76,11 @@ class Item extends BaseResource implements ResourceInterface
     public function getTechnicalStock(): ?int
     {
         return (int) $this->attributes['technicalStock'];
+    }
+
+    public function getGrossRetailPrice(): ?string
+    {
+        return $this->attributes['grossRetailPrice'];
     }
 
     public function getImageName(): ?string
