@@ -8,7 +8,7 @@
     "myclabs/php-enum": "^1.7",
     "ext-simplexml": "*",
     "symfony/http-kernel": "^5.1.5",
-    "laravel/framework": "^7.30.3|^8",
+    "laravel/framework": "^7.30.4|^8.24",
     "ext-dom": "*"
   },
   "require-dev": {
