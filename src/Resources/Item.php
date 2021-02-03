@@ -8,7 +8,7 @@ namespace Webparking\LaravelCash\Resources;
  * @property string $articleCode      2260 Artikelcode
  * @property string $searchName       2261 Zoeknaam artikel
  * @property string $itemGroup        2208 Artikelgroep
- * @property string $itemGroup2       2202 Artikelgroep 2
+ * @property string $itemGroupTwo     2202 Artikelgroep 2
  * @property string $description      2001 Omschrijving
  * @property string $supplierNumber   2230 Leveranciersnummer
  * @property string $availableStock   2293 Vrije voorraad
@@ -23,7 +23,7 @@ class Item extends BaseResource implements ResourceInterface
         'itemCode' => 'F2260',
         'searchName' => 'F2261',
         'itemGroup' => 'F2208',
-        'itemGroup2' => 'F2202',
+        'itemGroupTwo' => 'F2202',
         'description' => 'F2001',
         'supplierNumber' => 'F2230',
         'availableStock' => 'F2293',
@@ -53,9 +53,9 @@ class Item extends BaseResource implements ResourceInterface
         return $this->attributes['itemGroup'];
     }
 
-    public function getItemGroup2(): ?string
+    public function getItemGroupTwo(): ?string
     {
-        return $this->attributes['itemGroup2'];
+        return $this->attributes['itemGroupTwo'];
     }
 
     public function getDescription(): ?string
