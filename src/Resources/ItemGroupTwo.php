@@ -17,12 +17,12 @@ class ItemGroupTwo extends BaseResource implements ResourceInterface
 
     public function getIdField(): string
     {
-        return 'itemGroupTwo';
+        return 'itemGroup';
     }
 
-    public function getItemGroupTwo(): ?string
+    public function getItemGroup(): ?string
     {
-        return $this->attributes['itemGroupTwo'];
+        return $this->attributes['itemGroup'];
     }
 
     public function getDescription(): ?string
