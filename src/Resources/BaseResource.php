@@ -34,10 +34,6 @@ abstract class BaseResource
                 continue;
             }
 
-            if (Str::startsWith($key, 'date')) {
-                $value = \Carbon\Carbon::parse($value)->format('dmy');
-            }
-
             $saveAttributes[$this->mapping[$key]] = $value;
         }
 
