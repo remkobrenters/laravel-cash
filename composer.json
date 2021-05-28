@@ -4,7 +4,7 @@
   "license": "MIT",
   "require": {
     "php": "^7.4|^8.0",
-    "artisaninweb/laravel-soap": "0.3.0.9",
+    "artisaninweb/laravel-soap": "0.3.0.10",
     "myclabs/php-enum": "^1.7",
     "ext-simplexml": "*",
     "symfony/http-kernel": "^5.1.5",
