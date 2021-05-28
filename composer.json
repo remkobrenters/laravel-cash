@@ -3,15 +3,16 @@
   "description": "Laravel API helper for CASH",
   "license": "MIT",
   "require": {
-    "php": "^7.4",
+    "php": "^7.4|^8.0",
     "artisaninweb/laravel-soap": "0.3.0.9",
     "myclabs/php-enum": "^1.7",
     "ext-simplexml": "*",
     "symfony/http-kernel": "^5.1.5",
-    "laravel/framework": "^7.30.4|^8.24",
+    "laravel/framework": "^7.30.4|^8.40.0",
     "ext-dom": "*"
   },
   "require-dev": {
+    "roave/security-advisories": "dev-latest",
     "phpstan/phpstan": "^0.12.18",
     "friendsofphp/php-cs-fixer": "^2.16"
   },
