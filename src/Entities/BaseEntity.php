@@ -65,7 +65,7 @@ abstract class BaseEntity
         );
 
         if (!isset($response['response'])) {
-            throw new \RuntimeException(sprintf('Call failed, no response received'));
+            throw new \RuntimeException('Call failed, no response received');
         }
 
         if (1 !== $response['response']->code) {

@@ -1,4 +1,6 @@
 # Laravel helper for CASH
+![example workflow](https://github.com/webparking/laravel-cash/actions/workflows/php.yml/badge.svg)
+
 Attempt to connect the past and the future in a stable and manageable way. The wrapper is developed using the v3 API with credentials (and not using the generated token). I only worked out the mapping for the endpoints that I needed.   
 
 ## Installation
