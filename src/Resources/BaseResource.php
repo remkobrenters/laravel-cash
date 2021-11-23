@@ -4,8 +4,6 @@ declare(strict_types=1);
 
 namespace Webparking\LaravelCash\Resources;
 
-use Illuminate\Support\Str;
-
 abstract class BaseResource
 {
     protected array $attributes = [];
@@ -30,7 +28,7 @@ abstract class BaseResource
     {
         $saveAttributes = [];
         foreach ($this->attributes as $key => $value) {
-            if (!array_key_exists($key, $this->mapping)) {
+            if (!\array_key_exists($key, $this->mapping)) {
                 continue;
             }
 
@@ -72,7 +70,7 @@ abstract class BaseResource
         $this->attributes = [];
 
         foreach ($attributes as $key => $value) {
-            if (!array_key_exists($key, $this->mapping)) {
+            if (!\array_key_exists($key, $this->mapping)) {
                 throw new \RuntimeException('Mapped key does not exists');
             }
 
