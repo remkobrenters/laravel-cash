@@ -43,7 +43,13 @@ abstract class BaseEntity
 
     public function save(BaseResource $resource): void
     {
-        $this->call(DataType::IMPORT(), $this->endpoint, $resource->getId(), $resource->getSaveAttributes());
+        $resourceId = $resource->getId();
+
+        if (null !== $resourceId) {
+            $resourceId = (string) $resourceId;
+        }
+
+        $this->call(DataType::IMPORT(), $this->endpoint, $resourceId, $resource->getSaveAttributes());
     }
 
     protected function map(\SimpleXMLElement $xml): Collection
