@@ -66,7 +66,7 @@ abstract class BaseResource
     }
 
     /**
-     * @param mixed[] $attributes
+     * @param  mixed[] $attributes
      * @return static
      */
     public function fill(array $attributes)

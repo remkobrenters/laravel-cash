@@ -5,18 +5,18 @@ declare(strict_types=1);
 namespace Webparking\LaravelCash\Resources;
 
 /**
- * @property ?string relationNumber
- * @property ?string deliveryAddressSerialNumber
- * @property ?string description
- * @property ?string name
- * @property ?string attentionOf
- * @property ?string address
- * @property ?string postalCodeCity
- * @property ?string country
- * @property ?string countryCode
- * @property ?string phoneNumber
- * @property ?string comments
- * @property ?string globalLocationNumber
+ * @property ?string $relationNumber
+ * @property ?string $deliveryAddressSerialNumber
+ * @property ?string $description
+ * @property ?string $name
+ * @property ?string $attentionOf
+ * @property ?string $address
+ * @property ?string $postalCodeCity
+ * @property ?string $country
+ * @property ?string $countryCode
+ * @property ?string $phoneNumber
+ * @property ?string $comments
+ * @property ?string $globalLocationNumber
  */
 class DeliveryAddress extends BaseResource implements ResourceInterface
 {
