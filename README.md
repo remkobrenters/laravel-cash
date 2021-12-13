@@ -34,6 +34,16 @@ The notation is the letter + a number which indicated (in most cases) the max le
 - Y2 = Year (2chars)
 - I = Decimal (not sure how this notation works)
 
+## Development
+
+This repository comes with a handy Docker Compose setup to aid in development.
+
+To get started simply run the following and you're off to the races:
+
+```shell
+$ make start
+```
+
 ## Licence and Postcardware
 This software is open source and licensed under the [MIT license](LICENSE.md).
 
