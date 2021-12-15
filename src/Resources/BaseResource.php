@@ -65,7 +65,11 @@ abstract class BaseResource
         }
     }
 
-    public function fill(array $attributes): void
+    /**
+     * @param  mixed[] $attributes
+     * @return static
+     */
+    public function fill(array $attributes)
     {
         $this->attributes = [];
 
@@ -76,5 +80,7 @@ abstract class BaseResource
 
             $this->setAttribute($key, $value);
         }
+
+        return $this;
     }
 }

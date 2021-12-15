@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<cash>
+    <errors>
+        <error>
+            <message>Ongeldige waarde 0101=123456</message>
+            <line>1</line>
+            <source>2229|0101=123456|2228=123456|2229=This is a test delivery address.|0103=Test B.V.|0104=John
+                Doe|0105=Teststraat 12|0107=1234AB Test|0125=Nederland|0130=NL|0108=0612345678|0115=Dit is een
+                test|2888=ABCDEFGHIJKLM|
+            </source>
+        </error>
+    </errors>
+</cash>
