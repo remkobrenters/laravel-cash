@@ -7,18 +7,20 @@ namespace Webparking\LaravelCash\Tests\Feature\Entities;
 use Artisaninweb\SoapWrapper\Service;
 use Artisaninweb\SoapWrapper\SoapWrapper;
 use Webparking\LaravelCash\Entities\DeliveryAddress;
+use Webparking\LaravelCash\Enums\TransactionStatusCode;
 use Webparking\LaravelCash\Exceptions\CashApiException;
+use Webparking\LaravelCash\Exceptions\CashValidationException;
 use Webparking\LaravelCash\Resources\DeliveryAddress as DeliveryAddressResource;
+use Webparking\LaravelCash\Tests\Feature\Traits\MocksSoapCashWrapper;
 use Webparking\LaravelCash\Tests\TestCase;
 
 final class DeliveryAddressTest extends TestCase
 {
+    use MocksSoapCashWrapper;
+
     public function testEmptyIndex(): void
     {
-        /** @var SoapWrapper $wrapper */
-        $wrapper = $this->app->make(SoapWrapper::class);
-
-        $wrapper->add('Cash', function (Service $service) {
+        $wrapper = $this->createMockWrapper(function () {
             $soapClient = \Mockery::mock(\SoapClient::class)
                 ->makePartial();
 
@@ -29,7 +31,7 @@ final class DeliveryAddressTest extends TestCase
                     $this->makeSoapResponse((string) file_get_contents(__DIR__.'/../../data/delivery-address/empty.json')),
                 );
 
-            $service->client($soapClient);
+            return $soapClient;
         });
 
         $this->app->instance(SoapWrapper::class, $wrapper);
@@ -44,7 +46,21 @@ final class DeliveryAddressTest extends TestCase
 
     public function testSave(): void
     {
-        $this->markTestIncomplete('What is the true identifier here?');
+        $wrapper = $this->createMockWrapper(function () {
+            $soapClient = \Mockery::mock(\SoapClient::class)
+                ->makePartial();
+
+            $soapClient
+                ->shouldReceive('SoapCall')
+                ->once()
+                ->andReturn(
+                    $this->makeSoapResponse((string) file_get_contents(__DIR__.'/../../data/delivery-address/creation-succeeded.json')),
+                );
+
+            return $soapClient;
+        });
+
+        $this->app->instance(SoapWrapper::class, $wrapper);
 
         /** @var DeliveryAddress $deliveryAddress */
         $deliveryAddress = $this->app->make(DeliveryAddress::class);
@@ -62,19 +78,55 @@ final class DeliveryAddressTest extends TestCase
             'comments' => 'Dit is een test',
             'globalLocationNumber' => 'ABCDEFGHIJKLM',
         ]);
+
+        $deliveryAddress->create($resource);
     }
 
-    /**
-     * @param string $output
-     * @return mixed[]
-     * @throws \JsonException
-     */
-    private function makeSoapResponse(string $output): array
+    public function testSaveFailed(): void
     {
-        $data = json_decode($output, true, 512, JSON_THROW_ON_ERROR);
+        $errorJson = (string) file_get_contents(__DIR__.'/../../data/delivery-address/creation-failed.json');
 
-        $data['response'] = (object) $data['response'];
+        $errorXml = simplexml_load_string(
+            data_get(json_decode($errorJson, true), 'transaction.err')
+        );
 
-        return $data;
+        $expectedException = new CashValidationException($errorXml, TransactionStatusCode::VALIDATION_ERROR);
+
+        $this->expectExceptionObject($expectedException);
+
+        $wrapper = $this->createMockWrapper(function () use ($errorJson) {
+            $soapClient = \Mockery::mock(\SoapClient::class)
+                ->makePartial();
+
+            $soapClient
+                ->shouldReceive('SoapCall')
+                ->once()
+                ->andReturn(
+                    $this->makeSoapResponse($errorJson),
+                );
+
+            return $soapClient;
+        });
+
+        $this->app->instance(SoapWrapper::class, $wrapper);
+
+        /** @var DeliveryAddress $deliveryAddress */
+        $deliveryAddress = $this->app->make(DeliveryAddress::class);
+
+        $resource = (new DeliveryAddressResource())->fill([
+            'relationNumber' => '123456',
+            'description' => 'This is a test delivery address.',
+            'name' => 'Test B.V.',
+            'attentionOf' => 'John Doe',
+            'address' => 'Teststraat 12',
+            'postalCodeCity' => '1234AB Test',
+            'country' => 'Nederland',
+            'countryCode' => 'NL',
+            'phoneNumber' => '0612345678',
+            'comments' => 'Dit is een test',
+            'globalLocationNumber' => 'ABCDEFGHIJKLM',
+        ]);
+
+        $deliveryAddress->create($resource);
     }
 }

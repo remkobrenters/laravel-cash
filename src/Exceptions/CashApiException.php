@@ -17,8 +17,6 @@ class CashApiException extends \Exception
 
     public function getErrors(): array
     {
-        dump($this->errorXml);
-
         return array_map(fn (\SimpleXMLElement $error) => (string) $error->message, $this->errorXml->xpath('errors/error'));
     }
 }
