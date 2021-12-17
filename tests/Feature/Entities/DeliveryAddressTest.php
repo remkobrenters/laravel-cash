@@ -129,4 +129,30 @@ final class DeliveryAddressTest extends TestCase
 
         $deliveryAddress->create($resource);
     }
+
+    public function testGet(): void
+    {
+        $wrapper = $this->createMockWrapper(function () {
+            $soapClient = \Mockery::mock(\SoapClient::class)
+                ->makePartial();
+
+            $soapClient
+                ->shouldReceive('SoapCall')
+                ->once()
+                ->andReturn(
+                    $this->makeSoapResponse((string) file_get_contents(__DIR__.'/../../data/delivery-address/get.json')),
+                );
+
+            return $soapClient;
+        });
+
+        $this->app->instance(SoapWrapper::class, $wrapper);
+
+        /** @var DeliveryAddress $deliveryAddress */
+        $deliveryAddress = $this->app->make(DeliveryAddress::class);
+
+        $deliveryAddresses = $deliveryAddress->get('000100');
+
+        self::assertCount(2, $deliveryAddresses);
+    }
 }
