@@ -26,14 +26,7 @@ abstract class BaseEntity
         $this->client = $client;
     }
 
-    public function index(): Collection
-    {
-        $rawData = $this->call(DataType::EXPORT(), $this->endpoint);
-
-        return $this->map($rawData);
-    }
-
-    public function filteredIndex(string $parameters): Collection
+    public function index(string $parameters = ''): Collection
     {
         $rawData = $this->call(DataType::EXPORT(), "$this->endpoint$parameters");
 
