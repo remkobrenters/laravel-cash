@@ -33,6 +33,13 @@ abstract class BaseEntity
         return $this->map($rawData);
     }
 
+    public function filteredIndex(string $parameters): Collection
+    {
+        $rawData = $this->call(DataType::EXPORT(), "$this->endpoint$parameters");
+
+        return $this->map($rawData);
+    }
+
     protected function get(string $identifier)
     {
         $rawData = $this->call(DataType::EXPORT(), $this->endpoint, $identifier);
