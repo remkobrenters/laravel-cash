@@ -5,21 +5,36 @@
 Attempt to connect the past and the future in a stable and manageable way. The wrapper is developed using the v3 API with credentials (and not using the generated token). I only worked out the mapping for the endpoints that I needed.   
 
 ## Installation
-```
+```shell
 composer require webparking/laravel-cash
 ```
 
 ## Usage 
-    /** @var CashItem $item */
-    $item = app()->make(CashItem::class);
-    
-    // Get collection of items   
-    $items = $item->index(); 
+```php
+use Webparking\LaravelCash\Entities\Item;
 
-    // Fetch item 'foo'   
-    $item = $item->get('foo'); 
-    
+/** @var Item $item */
+$item = app()->make(Item::class);
+
+// Get collection of items   
+$items = $item->index(); 
+
+// Fetch item 'foo'
+$item = $item->get('foo'); 
+```
 Note: the CASH API accepts a maximum of 100 requests per minute
+
+### Advanced usage
+It's possible to add parameters to an index request. E.g.:
+```php
+use Webparking\LaravelCash\Entities\Item;
+
+app()->make(Item::class)->index('X'); // Creates request for endpoint "2260X"
+
+app()->make(Item::class)->index('W|7'); // Creates request for endpoint "2260W|7"
+```
+Note: Parameter "X" is universal to all endpoints and causes the CASH response to include field names instead of only the codes.\
+Useful for testing.
     
 ## Relations and customers
 `Customers` (2220) are a subset of `relations` (0101). The customer entity connects you through to the `customerGroup` and `customerGroupTwo`.  
