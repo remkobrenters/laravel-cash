@@ -12,7 +12,7 @@ class Warehouse extends BaseEntity
 
     protected string $resource = WarehouseResource::class;
 
-    protected function get(string $identifier): ?WarehouseResource
+    public function get(string $identifier): ?WarehouseResource
     {
         return parent::get($identifier);
     }

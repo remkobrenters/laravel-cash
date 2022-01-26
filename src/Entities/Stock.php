@@ -12,7 +12,7 @@ class Stock extends BaseEntity
 
     protected string $resource = StockResource::class;
 
-    protected function get(string $identifier): ?StockResource
+    public function get(string $identifier): ?StockResource
     {
         return parent::get($identifier);
     }
