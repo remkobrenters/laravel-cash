@@ -12,7 +12,7 @@ class SalesOrderLine extends BaseEntity
 
     protected string $resource = SalesOrderLineResource::class;
 
-    protected function get(string $identifier): ?SalesOrderLineResource
+    public function get(string $identifier): ?SalesOrderLineResource
     {
         return parent::get($identifier);
     }
