@@ -4,7 +4,8 @@ declare(strict_types=1);
 
 namespace Webparking\LaravelCash\Resources;
 
-use Carbon\Carbon;
+use Carbon\CarbonImmutable;
+use Carbon\CarbonInterface;
 
 /**
  * @property string $contractNumber            4200 Contractnummer
@@ -98,46 +99,46 @@ class Contract extends BaseResource implements ResourceInterface
         return $this->attributes['billingPeriodInMonths'];
     }
 
-    public function getInstallationDate(): ?Carbon
+    public function getInstallationDate(): ?CarbonInterface
     {
-        $value = $this->attributes['installationDate'];
-
-        return null !== $value ? Carbon::parse($value) : null;
+        return $this->attributes['installationDate']
+            ? CarbonImmutable::parse($this->attributes['installationDate'])
+            : null;
     }
 
-    public function getContractStartDate(): ?Carbon
+    public function getContractStartDate(): ?CarbonInterface
     {
-        $value = $this->attributes['contractStartDate'];
-
-        return null !== $value ? Carbon::parse($value) : null;
+        return $this->attributes['contractStartDate']
+            ? CarbonImmutable::parse($this->attributes['contractStartDate'])
+            : null;
     }
 
-    public function getWarrantyEndDate(): ?Carbon
+    public function getWarrantyEndDate(): ?CarbonInterface
     {
-        $value = $this->attributes['warrantyEndDate'];
-
-        return null !== $value ? Carbon::parse($value) : null;
+        return $this->attributes['warrantyEndDate']
+            ? CarbonImmutable::parse($this->attributes['warrantyEndDate'])
+            : null;
     }
 
-    public function getNextBillingDate(): ?Carbon
+    public function getNextBillingDate(): ?CarbonInterface
     {
-        $value = $this->attributes['nextBillingDate'];
-
-        return null !== $value ? Carbon::parse($value) : null;
+        return $this->attributes['nextBillingDate']
+            ? CarbonImmutable::parse($this->attributes['nextBillingDate'])
+            : null;
     }
 
-    public function getNextMaintenanceDate(): ?Carbon
+    public function getNextMaintenanceDate(): ?CarbonInterface
     {
-        $value = $this->attributes['nextMaintenanceDate'];
-
-        return null !== $value ? Carbon::parse($value) : null;
+        return $this->attributes['nextMaintenanceDate']
+            ? CarbonImmutable::parse($this->attributes['nextMaintenanceDate'])
+            : null;
     }
 
-    public function getLastMalfunctionDate(): ?Carbon
+    public function getLastMalfunctionDate(): ?CarbonInterface
     {
-        $value = $this->attributes['lastMalfunctionDate'];
-
-        return null !== $value ? Carbon::parse($value) : null;
+        return $this->attributes['lastMalfunctionDate']
+            ? CarbonImmutable::parse($this->attributes['lastMalfunctionDate'])
+            : null;
     }
 
     public function getBlocked(): ?string
@@ -155,11 +156,11 @@ class Contract extends BaseResource implements ResourceInterface
         return $this->attributes['sellingPrice'];
     }
 
-    public function getContractEndDate(): ?Carbon
+    public function getContractEndDate(): ?CarbonInterface
     {
-        $value = $this->attributes['contractEndDate'];
-
-        return null !== $value ? Carbon::parse($value) : null;
+        return $this->attributes['contractEndDate']
+            ? CarbonImmutable::parse($this->attributes['contractEndDate'])
+            : null;
     }
 
     public function getWarrantyPeriodInMonths(): ?string
@@ -167,10 +168,10 @@ class Contract extends BaseResource implements ResourceInterface
         return $this->attributes['warrantyPeriodInMonths'];
     }
 
-    public function getLastMaintenanceDate(): ?Carbon
+    public function getLastMaintenanceDate(): ?CarbonInterface
     {
-        $value = $this->attributes['lastMaintenanceDate'];
-
-        return null !== $value ? Carbon::parse($value) : null;
+        return $this->attributes['lastMaintenanceDate']
+            ? CarbonImmutable::parse($this->attributes['lastMaintenanceDate'])
+            : null;
     }
 }
