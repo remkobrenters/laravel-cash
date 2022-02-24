@@ -167,8 +167,10 @@ class Contract extends BaseResource implements ResourceInterface
         return $this->attributes['warrantyPeriodInMonths'];
     }
 
-    public function getLastMaintenanceDate(): ?string
+    public function getLastMaintenanceDate(): ?Carbon
     {
-        return $this->attributes['lastMaintenanceDate'];
+        $value = $this->attributes['lastMaintenanceDate'];
+
+        return null !== $value ? Carbon::parse($value) : null;
     }
 }
