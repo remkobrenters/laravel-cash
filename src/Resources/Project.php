@@ -4,7 +4,8 @@ declare(strict_types=1);
 
 namespace Webparking\LaravelCash\Resources;
 
-use Carbon\Carbon;
+use Carbon\CarbonImmutable;
+use Carbon\CarbonInterface;
 
 /**
  * @property string $project          3600 Dossier
@@ -67,22 +68,18 @@ class Project extends BaseResource implements ResourceInterface
         return $this->attributes['productCode'];
     }
 
-    public function getDateOfExecution(): ?Carbon
+    public function getDateOfExecution(): ?CarbonInterface
     {
-        if (!$this->attributes['dateOfExecution']) {
-            return null;
-        }
-
-        return Carbon::parse($this->attributes['dateOfExecution']);
+        return $this->attributes['dateOfExecution']
+            ? CarbonImmutable::parse($this->attributes['dateOfExecution'])
+            : null;
     }
 
-    public function getDateOfCreation(): ?Carbon
+    public function getDateOfCreation(): ?CarbonInterface
     {
-        if (!$this->attributes['dateOfCreation']) {
-            return null;
-        }
-
-        return Carbon::parse($this->attributes['dateOfCreation']);
+        return $this->attributes['dateOfCreation']
+            ? CarbonImmutable::parse($this->attributes['dateOfCreation'])
+            : null;
     }
 
     public function getProductReference(): ?string
