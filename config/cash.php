@@ -28,4 +28,26 @@ return [
     |--------------------------------------------------------------------------
     */
     'wsdl' => 'https://www.cashweb.nl/?api/3.0/wsdl',
+
+    /*
+    |--------------------------------------------------------------------------
+    | Logging
+    |--------------------------------------------------------------------------
+    */
+    'logging' => [
+        'enabled' => env('CASH_LOGGING_ENABLED', false),
+        'channel' => 'stack',
+        'level' => 'debug',
+    ],
+
+    /*
+    |--------------------------------------------------------------------------
+    | Logging: Responses
+    |--------------------------------------------------------------------------
+    |
+    | Filepath for responses. Responses are stored separately from
+    | regular logs, since they can be quite large.
+    |
+    */
+    'response_path' => storage_path('cash_responses'),
 ];

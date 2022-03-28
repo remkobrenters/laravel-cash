@@ -8,6 +8,7 @@ use Artisaninweb\SoapWrapper\Service;
 use Artisaninweb\SoapWrapper\SoapWrapper;
 use Illuminate\Support\Str;
 use Webparking\LaravelCash\Enums\DataType;
+use Webparking\LaravelCash\Exceptions\CashResponseFormatException;
 
 class Client
 {
@@ -38,8 +39,12 @@ class Client
         return 'Cash.' . $value;
     }
 
-    public function makeParameters(DataType $dataType, string $endpoint, string $identifier = null, array $attributes = []): array
-    {
+    public function makeParameters(
+        DataType $dataType,
+        string $endpoint,
+        string $identifier = null,
+        array $attributes = []
+    ): array {
         if ($dataType->equals(DataType::EXPORT())) {
             $endpointValue = $endpoint;
             if ($identifier) {
@@ -56,7 +61,7 @@ class Client
             $importData = $dom->ownerDocument->saveXML($dom->ownerDocument->documentElement);
             $endpointValue = $importData;
         } else {
-            throw new \RuntimeException('Invalid datatType provided');
+            throw new \RuntimeException('Invalid dataType provided');
         }
 
         return [
@@ -75,8 +80,12 @@ class Client
 
     public function parseResponse(string $response): \SimpleXMLElement
     {
-        $cleanResponse = str_replace('Content-type: text/xml ', '', $response);
+        try {
+            $cleanResponse = str_replace('Content-type: text/xml ', '', $response);
 
-        return simplexml_load_string($cleanResponse);
+            return simplexml_load_string($cleanResponse);
+        } catch (\Exception $exception) {
+            throw new CashResponseFormatException('Could not parse response xml. No valid xml found', $response);
+        }
     }
 }

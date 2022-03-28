@@ -9,6 +9,7 @@ use Webparking\LaravelCash\Client;
 use Webparking\LaravelCash\Enums\DataType;
 use Webparking\LaravelCash\Exceptions\CashApiException;
 use Webparking\LaravelCash\Exceptions\CashValidationException;
+use Webparking\LaravelCash\Helpers\Logger;
 use Webparking\LaravelCash\Resources\BaseResource;
 
 abstract class BaseEntity
@@ -70,12 +71,25 @@ abstract class BaseEntity
         return $collection;
     }
 
-    protected function call(DataType $dataType, string $endpoint, string $identifier = null, array $attributes = []): ?\SimpleXMLElement
-    {
+    protected function call(
+        DataType $dataType,
+        string $endpoint,
+        string $identifier = null,
+        array $attributes = []
+    ): ?\SimpleXMLElement {
+        $requestParameters = $this->client->makeParameters($dataType, $endpoint, $identifier, $attributes);
+
+        Logger::log(
+            sprintf("Request: $dataType, %s", null !== $identifier ? "$endpoint|$identifier" : $endpoint),
+            $requestParameters
+        );
+
         $response = $this->client->getSoapWrapper()->call(
             $this->client->makeMethod($dataType),
-            $this->client->makeParameters($dataType, $endpoint, $identifier, $attributes)
+            $requestParameters
         );
+
+        Logger::logResponse($response);
 
         if (!isset($response['response'])) {
             throw new \RuntimeException('Call failed, no response received');
