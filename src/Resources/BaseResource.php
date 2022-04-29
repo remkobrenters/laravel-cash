@@ -10,14 +10,23 @@ abstract class BaseResource
 
     protected array $mapping = [];
 
-    abstract public function getIdField(): string;
-
     public function __construct(\SimpleXMLElement $xml = null)
     {
         if ($xml) {
             $this->map($xml);
         }
     }
+
+    public function __get($key): ?string
+    {
+        if (isset($this->attributes[$key])) {
+            return $this->attributes[$key];
+        }
+
+        return null;
+    }
+
+    abstract public function getIdField(): string;
 
     public function getAttributes(): array
     {
@@ -43,30 +52,9 @@ abstract class BaseResource
         return $this->attributes[$this->getIdField()];
     }
 
-    public function __get($key): ?string
-    {
-        if (isset($this->attributes[$key])) {
-            return $this->attributes[$key];
-        }
-
-        return null;
-    }
-
-    private function setAttribute($key, $value): void
-    {
-        $this->attributes[$key] = $value;
-    }
-
-    private function map(\SimpleXMLElement $xml): void
-    {
-        $this->attributes = [];
-        foreach ($this->mapping as $key => $value) {
-            $this->setAttribute($key, $xml->{$value}->__toString());
-        }
-    }
-
     /**
-     * @param  mixed[] $attributes
+     * @param mixed[] $attributes
+     *
      * @return static
      */
     public function fill(array $attributes)
@@ -82,5 +70,18 @@ abstract class BaseResource
         }
 
         return $this;
+    }
+
+    private function setAttribute($key, $value): void
+    {
+        $this->attributes[$key] = $value;
+    }
+
+    private function map(\SimpleXMLElement $xml): void
+    {
+        $this->attributes = [];
+        foreach ($this->mapping as $key => $value) {
+            $this->setAttribute($key, $xml->{$value}->__toString());
+        }
     }
 }

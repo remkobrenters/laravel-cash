@@ -1,5 +1,5 @@
-FROM composer:latest as composer
-FROM php:7.4-cli-alpine
+FROM composer:latest AS composer
+FROM php:8.1-cli-alpine
 
 ARG PUID=1000
 ARG PGID=1000
@@ -13,7 +13,6 @@ RUN apk add --no-cache --virtual .build-deps \
         $PHPIZE_DEPS \
     && \
     apk add --no-cache \
-        bash \
         # for composer
         unzip \
         # for php ext-soap
@@ -31,16 +30,12 @@ RUN apk add --no-cache --virtual .build-deps \
 
 RUN if [ "${XDEBUG_ON}" = true ]; then \
     apk add --no-cache --virtual .build-deps $PHPIZE_DEPS \
-    && pecl install xdebug-2.9.8 \
+    && pecl install xdebug \
     && docker-php-ext-enable xdebug \
     && { \
-    	echo "xdebug.default_enable = 0"; \
-    	echo "xdebug.remote_enable = 1"; \
-    	echo "xdebug.remote_autostart = 0"; \
-    	echo "xdebug.remote_connect_back = 0"; \
-    	echo "xdebug.profiler_enable = 0"; \
-    	echo "xdebug.remote_host = ${XDEBUG_REMOTE_HOST}"; \
-    	echo "xdebug.remote_port = ${XDEBUG_REMOTE_PORT}"; \
+    	echo "xdebug.mode=debug"; \
+    	echo "xdebug.client_host = ${XDEBUG_REMOTE_HOST}"; \
+    	echo "xdebug.client_port = ${XDEBUG_REMOTE_PORT}"; \
     } > /usr/local/etc/php/conf.d/docker-php-ext-xdebug.ini \
     && apk del .build-deps \
 ;fi

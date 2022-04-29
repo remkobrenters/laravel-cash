@@ -4,16 +4,18 @@ declare(strict_types=1);
 
 namespace Webparking\LaravelCash\Tests\Feature\Entities;
 
-use Artisaninweb\SoapWrapper\Service;
 use Artisaninweb\SoapWrapper\SoapWrapper;
 use Webparking\LaravelCash\Entities\DeliveryAddress;
 use Webparking\LaravelCash\Enums\TransactionStatusCode;
-use Webparking\LaravelCash\Exceptions\CashApiException;
 use Webparking\LaravelCash\Exceptions\CashValidationException;
 use Webparking\LaravelCash\Resources\DeliveryAddress as DeliveryAddressResource;
 use Webparking\LaravelCash\Tests\Feature\Traits\MocksSoapCashWrapper;
 use Webparking\LaravelCash\Tests\TestCase;
 
+/**
+ * @internal
+ * @coversNothing
+ */
 final class DeliveryAddressTest extends TestCase
 {
     use MocksSoapCashWrapper;
@@ -22,14 +24,16 @@ final class DeliveryAddressTest extends TestCase
     {
         $wrapper = $this->createMockWrapper(function () {
             $soapClient = \Mockery::mock(\SoapClient::class)
-                ->makePartial();
+                ->makePartial()
+            ;
 
             $soapClient
                 ->shouldReceive('SoapCall')
                 ->once()
                 ->andReturn(
                     $this->makeSoapResponse((string) file_get_contents(__DIR__.'/../../data/delivery-address/empty.json')),
-                );
+                )
+            ;
 
             return $soapClient;
         });
@@ -48,14 +52,16 @@ final class DeliveryAddressTest extends TestCase
     {
         $wrapper = $this->createMockWrapper(function () {
             $soapClient = \Mockery::mock(\SoapClient::class)
-                ->makePartial();
+                ->makePartial()
+            ;
 
             $soapClient
                 ->shouldReceive('SoapCall')
                 ->once()
                 ->andReturn(
                     $this->makeSoapResponse((string) file_get_contents(__DIR__.'/../../data/delivery-address/creation-succeeded.json')),
-                );
+                )
+            ;
 
             return $soapClient;
         });
@@ -96,14 +102,16 @@ final class DeliveryAddressTest extends TestCase
 
         $wrapper = $this->createMockWrapper(function () use ($errorJson) {
             $soapClient = \Mockery::mock(\SoapClient::class)
-                ->makePartial();
+                ->makePartial()
+            ;
 
             $soapClient
                 ->shouldReceive('SoapCall')
                 ->once()
                 ->andReturn(
                     $this->makeSoapResponse($errorJson),
-                );
+                )
+            ;
 
             return $soapClient;
         });
@@ -134,14 +142,16 @@ final class DeliveryAddressTest extends TestCase
     {
         $wrapper = $this->createMockWrapper(function () {
             $soapClient = \Mockery::mock(\SoapClient::class)
-                ->makePartial();
+                ->makePartial()
+            ;
 
             $soapClient
                 ->shouldReceive('SoapCall')
                 ->once()
                 ->andReturn(
                     $this->makeSoapResponse((string) file_get_contents(__DIR__.'/../../data/delivery-address/get.json')),
-                );
+                )
+            ;
 
             return $soapClient;
         });
@@ -153,6 +163,6 @@ final class DeliveryAddressTest extends TestCase
 
         $deliveryAddresses = $deliveryAddress->get('000100');
 
-        self::assertCount(2, $deliveryAddresses);
+        static::assertCount(2, $deliveryAddresses);
     }
 }

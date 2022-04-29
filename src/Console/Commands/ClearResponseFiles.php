@@ -18,7 +18,7 @@ class ClearResponseFiles extends Command
     public function handle(): int
     {
         try {
-            $finder = Finder::create()->files()->in(Config::get('cash.logging.response_path', storage_path('cash_responses')));
+            $finder = Finder::create()->files()->in(Config::get('cash.logging.response_path'));
         } catch (DirectoryNotFoundException $exception) {
             $this->info('Storage directory does not exist. Skipping execution.');
 
@@ -26,7 +26,8 @@ class ClearResponseFiles extends Command
         }
 
         foreach ($finder as $file) {
-            if (!unlink($file->getRealPath())) {
+            $filepath = $file->getRealPath();
+            if (!$filepath || !unlink($filepath)) {
                 $this->error("Could not delete file: '{$file->getFilename()}'");
 
                 return static::FAILURE;

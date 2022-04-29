@@ -19,7 +19,8 @@ class Logger
     {
         if (Config::get('cash.logging.enabled', false)) {
             Log::channel(Config::get('cash.logging.channel', 'stack'))
-                ->log(Config::get('cash.logging.level', 'info'), $message, $context);
+                ->log(Config::get('cash.logging.level', 'info'), $message, $context)
+            ;
         }
     }
 
@@ -44,7 +45,7 @@ class Logger
             try {
                 $contents = simplexml_load_string($result);
 
-                $contents->saveXML("$storagePath/$timestamp.xml");
+                $contents->saveXML("{$storagePath}/{$timestamp}.xml");
 
                 return;
             } catch (\Exception $exception) {
@@ -52,7 +53,7 @@ class Logger
             }
         }
 
-        static::saveRawResponse($response, "$storagePath/$timestamp");
+        static::saveRawResponse($response, "{$storagePath}/{$timestamp}");
     }
 
     /** @param mixed $response */

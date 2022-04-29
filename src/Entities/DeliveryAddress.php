@@ -15,7 +15,7 @@ class DeliveryAddress extends BaseEntity
     protected string $resource = DeliveryAddressResource::class;
 
     /**
-     * @return Collection<DeliveryAddressResource>|null
+     * @return null|Collection<DeliveryAddressResource>
      */
     public function get(string $identifier): ?Collection
     {

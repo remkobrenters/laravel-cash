@@ -7,17 +7,18 @@
         "artisaninweb/laravel-soap": "0.3.0.10",
         "myclabs/php-enum": "^1.7",
         "ext-simplexml": "*",
-        "symfony/http-kernel": "^5.1.5",
-        "laravel/framework": "^7.30.4|^8.40.0",
         "ext-dom": "*",
-        "ext-soap": "*"
+        "ext-soap": "*",
+        "illuminate/support": "^6|^8|^9",
+        "illuminate/console": "^6|^8|^9",
+        "symfony/finder": "^6"
     },
     "require-dev": {
         "roave/security-advisories": "dev-latest",
-        "phpstan/phpstan": "^0.12.18",
-        "friendsofphp/php-cs-fixer": "^2.16",
-        "orchestra/testbench": "^5|^6",
-        "mockery/mockery": "^1.4"
+        "phpstan/phpstan": "^1",
+        "friendsofphp/php-cs-fixer": "^3",
+        "mockery/mockery": "^1.4",
+        "illuminate/testing": "^6|^8|^9"
     },
     "autoload": {
         "psr-4": {
@@ -37,16 +38,13 @@
         }
     },
     "scripts": {
-        "php-cs-fixer": "vendor/bin/php-cs-fixer fix --config=.php_cs",
+        "php-cs-fixer": "vendor/bin/php-cs-fixer fix --config=.php-cs-fixer.php",
         "phpstan": "./vendor/bin/phpstan analyse src config --memory-limit=-1 --level 5",
         "phpunit": "./vendor/bin/phpunit",
         "test": [
             "composer php-cs-fixer",
             "composer phpstan",
             "composer phpunit"
-        ],
-        "post-autoload-dump": [
-            "@php ./vendor/bin/testbench package:discover --ansi"
         ]
     },
     "minimum-stability": "dev",

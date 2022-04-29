@@ -7,6 +7,10 @@ namespace Webparking\LaravelCash\Tests\Feature\Resources;
 use Webparking\LaravelCash\Resources\DeliveryAddress;
 use Webparking\LaravelCash\Tests\TestCase;
 
+/**
+ * @internal
+ * @coversNothing
+ */
 final class DeliveryAddressTest extends TestCase
 {
     /**
@@ -18,7 +22,7 @@ final class DeliveryAddressTest extends TestCase
     {
         $resource = (new DeliveryAddress())->fill($attributes);
 
-        $this->assertEquals($attributes, $resource->getAttributes());
+        static::assertSame($attributes, $resource->getAttributes());
     }
 
     /**
@@ -40,7 +44,7 @@ final class DeliveryAddressTest extends TestCase
                 'phoneNumber' => '0612345678',
                 'comments' => 'Dit is een test',
                 'globalLocationNumber' => 'ABCDEFGHIJKLM',
-            ]
+            ],
         ];
     }
 }

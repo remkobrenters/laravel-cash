@@ -27,7 +27,7 @@ class Item extends BaseEntity
     ): Collection {
         $prefix = $this->booleanFilterPrefix($withStock, $omitPurchasePrice, $ignoreWebShopLink, $omitImages);
 
-        return $this->index("{$prefix}G|$itemGroup");
+        return $this->index("{$prefix}G|{$itemGroup}");
     }
 
     /** @param int|string $days */
@@ -40,7 +40,7 @@ class Item extends BaseEntity
     ): Collection {
         $prefix = $this->booleanFilterPrefix($withStock, $omitPurchasePrice, $ignoreWebShopLink, $omitImages);
 
-        return $this->index("{$prefix}W|$days");
+        return $this->index("{$prefix}W|{$days}");
     }
 
     public function filterOptions(

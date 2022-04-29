@@ -18,12 +18,12 @@ class LaravelCashServiceProvider extends ServiceProvider
     private function registerConfig(): void
     {
         $this->mergeConfigFrom(
-            __DIR__ . '/../../config/cash.php',
+            __DIR__.'/../../config/cash.php',
             'cash'
         );
 
         $this->publishes([
-            __DIR__ . '/../../config/cash.php' => config_path('cash.php'),
+            __DIR__.'/../../config/cash.php' => config_path('cash.php'),
         ], 'cash');
     }
 

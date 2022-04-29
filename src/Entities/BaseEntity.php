@@ -29,19 +29,9 @@ abstract class BaseEntity
 
     public function index(string $parameters = ''): Collection
     {
-        $rawData = $this->call(DataType::EXPORT(), "$this->endpoint$parameters");
+        $rawData = $this->call(DataType::EXPORT(), "{$this->endpoint}{$parameters}");
 
         return $this->map($rawData);
-    }
-
-    protected function get(string $identifier)
-    {
-        $rawData = $this->call(DataType::EXPORT(), $this->endpoint, $identifier);
-        if (1 !== $rawData->count()) {
-            return null;
-        }
-
-        return new $this->resource($rawData->{'R' . $this->endpoint});
     }
 
     public function save(BaseResource $resource): void
@@ -58,6 +48,21 @@ abstract class BaseEntity
     public function create(BaseResource $resource): void
     {
         $this->call(DataType::IMPORT(), $this->endpoint, null, $resource->getSaveAttributes());
+    }
+
+    public function getLastRawDataSet(): ?\SimpleXMLElement
+    {
+        return $this->lastRawDataSet;
+    }
+
+    protected function get(string $identifier)
+    {
+        $rawData = $this->call(DataType::EXPORT(), $this->endpoint, $identifier);
+        if (1 !== $rawData->count()) {
+            return null;
+        }
+
+        return new $this->resource($rawData->{'R'.$this->endpoint});
     }
 
     protected function map(\SimpleXMLElement $xml): Collection
@@ -80,7 +85,7 @@ abstract class BaseEntity
         $requestParameters = $this->client->makeParameters($dataType, $endpoint, $identifier, $attributes);
 
         Logger::log(
-            sprintf("Request: $dataType, %s", null !== $identifier ? "$endpoint|$identifier" : $endpoint),
+            sprintf("Request: {$dataType}, %s", null !== $identifier ? "{$endpoint}|{$identifier}" : $endpoint),
             $requestParameters
         );
 
@@ -136,10 +141,5 @@ abstract class BaseEntity
         }
 
         return null;
-    }
-
-    public function getLastRawDataSet(): ?\SimpleXMLElement
-    {
-        return $this->lastRawDataSet;
     }
 }

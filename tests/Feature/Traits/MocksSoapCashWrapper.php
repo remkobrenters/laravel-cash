@@ -16,18 +16,18 @@ trait MocksSoapCashWrapper
 
         $wrapper->add('Cash', function (Service $service) use ($makeSoapClientMock): void {
             /** @var \SoapClient $soapClient */
-             $soapClient = $makeSoapClientMock();
+            $soapClient = $makeSoapClientMock();
 
-             $service->client($soapClient);
+            $service->client($soapClient);
         });
 
         return $wrapper;
     }
 
     /**
-     * @param string $output
-     * @return mixed[]
      * @throws \JsonException
+     *
+     * @return mixed[]
      */
     protected function makeSoapResponse(string $output): array
     {

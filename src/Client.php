@@ -6,6 +6,7 @@ namespace Webparking\LaravelCash;
 
 use Artisaninweb\SoapWrapper\Service;
 use Artisaninweb\SoapWrapper\SoapWrapper;
+use Illuminate\Support\Facades\Config;
 use Illuminate\Support\Str;
 use Webparking\LaravelCash\Enums\DataType;
 use Webparking\LaravelCash\Exceptions\CashResponseFormatException;
@@ -16,10 +17,10 @@ class Client
 
     public function __construct()
     {
-        $this->soapWrapper = app()->make(SoapWrapper::class);
+        $this->soapWrapper = new SoapWrapper();
         if (!$this->soapWrapper->has('Cash')) {
             $this->soapWrapper->add('Cash', function (Service $service): void {
-                $service->wsdl(config('cash.wsdl'));
+                $service->wsdl(Config::get('cash.wsdl'));
             });
         }
     }
@@ -36,7 +37,7 @@ class Client
             return $value;
         }
 
-        return 'Cash.' . $value;
+        return 'Cash.'.$value;
     }
 
     public function makeParameters(
@@ -48,7 +49,7 @@ class Client
         if ($dataType->equals(DataType::EXPORT())) {
             $endpointValue = $endpoint;
             if ($identifier) {
-                $endpointValue .= '|' . $identifier;
+                $endpointValue .= '|'.$identifier;
             }
         } elseif ($dataType->equals(DataType::IMPORT())) {
             $xml = new \SimpleXMLElement('<CASH></CASH>');
@@ -66,13 +67,13 @@ class Client
 
         return [
             'token' => '',
-            'relatie' => config('cash.relation'),
-            'email' => config('cash.email'),
-            'pass' => config('cash.password'),
+            'relatie' => Config::get('cash.relation'),
+            'email' => Config::get('cash.email'),
+            'pass' => Config::get('cash.password'),
             $dataType->getValue() => $endpointValue,
             'administration' => [
-                'admCode' => config('cash.administration.code'),
-                'admMap' => config('cash.administration.map'),
+                'admCode' => Config::get('cash.administration.code'),
+                'admMap' => Config::get('cash.administration.map'),
             ],
             'formaat' => '0',
         ];
