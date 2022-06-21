@@ -28,6 +28,7 @@ use Carbon\CarbonInterface;
  * @property string $contractEndDate           4206 Datum beëindigd cntr
  * @property string $warrantyPeriodInMonths    4202 Garantietermijn (mnd)
  * @property string $lastMaintenanceDate       2352 Onderh.datum laatste
+ * @property string $contactNumber             2237 Contactnummer
  */
 class Contract extends BaseResource implements ResourceInterface
 {
@@ -52,6 +53,7 @@ class Contract extends BaseResource implements ResourceInterface
         'contractEndDate' => 'F4206',
         'warrantyPeriodInMonths' => 'F4202',
         'lastMaintenanceDate' => 'F2352',
+        'contactNumber' => 'F2237',
     ];
 
     public function getIdField(): string
@@ -173,5 +175,10 @@ class Contract extends BaseResource implements ResourceInterface
         return $this->attributes['lastMaintenanceDate']
             ? CarbonImmutable::parse($this->attributes['lastMaintenanceDate'])
             : null;
+    }
+
+    public function getContactNumber(): ?string
+    {
+        return $this->attributes['contactNumber'];
     }
 }
