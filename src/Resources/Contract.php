@@ -28,7 +28,7 @@ use Carbon\CarbonInterface;
  * @property string $contractEndDate           4206 Datum beëindigd cntr
  * @property string $warrantyPeriodInMonths    4202 Garantietermijn (mnd)
  * @property string $lastMaintenanceDate       2352 Onderh.datum laatste
- * @property string $contactNumber             2237 Contactnummer
+ * @property string $contactNumber             2237 Contactpersoon
  */
 class Contract extends BaseResource implements ResourceInterface
 {
